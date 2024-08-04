@@ -42,11 +42,11 @@ class _EditScreenState extends State<EditScreen> {
           children: [
             TextField(
               controller: _titleController,
-              style: TextStyle(
+              style: const TextStyle(
                   color: white,
                   fontSize: kDouble30,
                   fontWeight: FontWeight.bold),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Title',
                 border: InputBorder.none,
                 hintStyle: TextStyle(
@@ -58,11 +58,11 @@ class _EditScreenState extends State<EditScreen> {
             ),
             TextField(
               controller: _contentController,
-              style: TextStyle(
+              style: const TextStyle(
                 color: white,
                 fontSize: kDouble20,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Type something here',
                 border: InputBorder.none,
                 hintStyle: TextStyle(
@@ -81,13 +81,13 @@ class _EditScreenState extends State<EditScreen> {
           saveNote();
         },
         backgroundColor: grey,
-        child: Icon(
-          Icons.save,
-          color: Colors.white,
-        ),
         elevation: kDouble10,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDouble30),
+        ),
+        child: const Icon(
+          Icons.save,
+          color: Colors.white,
         ),
       ),
     );

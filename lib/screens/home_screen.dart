@@ -82,58 +82,79 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.builder(
                 itemCount: sampleNotes.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: kDouble5),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(kDouble15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    sampleNotes[index].title,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: kDouble20,
+                  return GestureDetector(
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return EditScreen(note: sampleNotes[index]);
+                          },
+                        ),
+                      );
+                      if (result != null) {
+                        setState(() {
+                          sampleNotes[index] = Note(
+                              id: index + 1,
+                              title: result[0],
+                              content: result[1],
+                              modifiedTime: DateTime.now());
+                        });
+                      }
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: kDouble5),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(kDouble15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      sampleNotes[index].title,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        color: black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: kDouble20,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    // 'This is note\'s content!',
-                                    sampleNotes[index].content,
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: black,
-                                      fontSize: kDouble15,
+                                    Text(
+                                      // 'This is note\'s content!',
+                                      sampleNotes[index].content,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: black,
+                                        fontSize: kDouble15,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Edited: ${DateFormat('EEE MMM d, yyyy h:mm a').format(sampleNotes[index].modifiedTime)}',
-                                    style: TextStyle(
-                                      color: black.withOpacity(0.5),
-                                      fontStyle: FontStyle.italic,
+                                    Text(
+                                      'Edited: ${DateFormat('EEE MMM d, yyyy h:mm a').format(sampleNotes[index].modifiedTime)}',
+                                      style: TextStyle(
+                                        color: black.withOpacity(0.5),
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.delete),
-                                padding: EdgeInsets.zero,
-                                constraints: BoxConstraints(),
+                              SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.delete),
+                                  padding: EdgeInsets.zero,
+                                  constraints: BoxConstraints(),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

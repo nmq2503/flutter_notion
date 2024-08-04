@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notion/core/constants.dart';
+import 'package:flutter_notion/model/note.dart';
 
 class EditScreen extends StatefulWidget {
-  const EditScreen({super.key});
+  final Note? note;
+  const EditScreen({super.key, this.note,});
 
   @override
   State<EditScreen> createState() => _EditScreenState();
 }
 
 class _EditScreenState extends State<EditScreen> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _contentController = TextEditingController();
+  late TextEditingController _titleController = TextEditingController();
+  late TextEditingController _contentController = TextEditingController();
 
   // Save note
   void saveNote() {
     Navigator.pop(context, [_titleController.text, _contentController.text]);
+  }
+
+  @override
+  void initState() {
+    if (widget.note != null) {
+      _titleController = TextEditingController(text: widget.note!.title);
+      _contentController = TextEditingController(text: widget.note!.content);
+    }
+    super.initState();
   }
 
   @override

@@ -12,6 +12,69 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void _deleteNote(int index) {
+    print(index);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.grey.shade900,
+          icon: Icon(
+            Icons.info,
+            color: grey,
+          ),
+          title: Text(
+            'Delete this note?',
+            style: TextStyle(
+              color: white,
+            ),
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    sampleNotes.removeAt(index);
+                    for (int i = 0; i < sampleNotes.length; i++) {
+                      sampleNotes[i].id = i + 1;
+                    }
+                  });
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                ),
+                child: Text(
+                  'Yes',
+                  style: TextStyle(
+                    color: white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,7 +210,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 25,
                                 width: 25,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _deleteNote(index);
+                                  },
                                   icon: Icon(Icons.delete),
                                   padding: EdgeInsets.zero,
                                   constraints: BoxConstraints(),

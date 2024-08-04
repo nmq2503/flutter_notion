@@ -1,5 +1,5 @@
 class Note {
-  final int id;
+  int id;
   final String title;
   final String content;
   final DateTime modifiedTime;
